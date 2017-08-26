@@ -12,7 +12,7 @@ config :serverAPI,
 # Configures the endpoint
 config :serverAPI, ServerAPI.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "HmMK4zQCtHbEOUUzP8aA60mS0xNSVHjx67gSklxtCsYtQfWmCz9YO1rcEaSimqcD",
+  secret_key_base: "GbtQ9/HE/8nhkCfYYEhuwVdFnENtWzMiZevbnoXwPMUFfasksU08grQBc2eUBlst",
   render_errors: [view: ServerAPI.ErrorView, accepts: ~w(html json)],
   pubsub: [name: ServerAPI.PubSub,
            adapter: Phoenix.PubSub.PG2]

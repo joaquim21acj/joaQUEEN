@@ -36,7 +36,7 @@ defmodule ServerAPI.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_serverAPI_key",
-    signing_salt: "bDaUfWr8"
+    signing_salt: "p9kEN6Od"
 
   plug ServerAPI.Router
 end

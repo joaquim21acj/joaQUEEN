@@ -35,9 +35,9 @@ config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
 config :serverAPI, ServerAPI.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "serverapi_dev",
+  adapter: Ecto.Adapters.MySQL,
+  username: "elixir",
+  password: "E1=Vv(1wg34t",
+  database: "elixirAPI",
   hostname: "localhost",
   pool_size: 10
