@@ -8,8 +8,7 @@ serverAPI/*.ez
 erl_crash.dump
 
 # Static artifacts
-serverAPI/node_modules/*
-joaqueen-electron/node_modules/*
+*/node_modules/*
 
 # Since we are building assets from web/static,
 # we ignore priv/static. You may want to comment
