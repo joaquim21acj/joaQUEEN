@@ -25,7 +25,7 @@
 					<td>{{pessoa.nome}}</td>
 					<td>{{pessoa.email}}</td>
 					<td>{{pessoa.endereco}}</td>
-					<td><button class="btn btn-info btn-xs" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-play-circle"></span> Play</button></td>
+					<td><button class="btn btn-info btn-xs" ng-click="habilitaAudio()"><span class="glyphicon glyphicon-play-circle"></span> Play</button></td>
 					<!-- <td>{{pessoa.nascimento}}</td> -->
 					<td>
 						<button class="btn btn-info btn-xs" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
@@ -44,7 +44,9 @@
 	</div>
 </div>
 
-<div>
+
+
+<div align="center" id="player">
 	<audio controls>
   <!-- <source src="https://soundcloud.com/paulo-pacheco-9/pabllo-vittar-ko-pacheco-privatepromo" type="audio/mpeg"> -->
   <source src="https://cf-media.sndcdn.com/BpcamGQDa2cc.128.mp3?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiKjovL2NmLW1lZGlhLnNuZGNkbi5jb20vQnBjYW1HUURhMmNjLjEyOC5tcDMiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE1MTEzOTE0MDd9fX1dfQ__&Signature=Tkl83WsKpKaKSc3EdVrZ-~Ko6HD1yRjrlERWCjfIePNWL5loPXfmzyqWQoWs7GgnW79c0aJytssHox6hTNx70na2QiiPECrF8S4P3TOu38FN94rpleQXyvOuIPwNMu24gKG0IVbds3lYhRlgZFUWZeG7V-QioOjeemll9FpLyLluRN9ZIP4DunTweo5jkf65o31CGtl1QDk63P3VfMYkeWIIB0jz~ykF1WvM45YmGn0aK4~HTNb7AA0~SdyPwmef5A6RlqbX-mAbNpwwZa9PARoUnyvO-BrlOFqnK68uZUTp1IwhGZHrq653MvLWFGcbxfIBP7i1yMuDDGbqzRFl5w__&Key-Pair-Id=APKAJAGZ7VMH2PFPW6UQ" type="audio/mpeg">
