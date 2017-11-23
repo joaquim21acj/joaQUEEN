@@ -20,7 +20,7 @@
 			</thead>
 			<tbody>
 				<!-- Listagem -->
-				<tr dir-paginate="pessoa in pessoas|filter:pesquisar|itemsPerPage:8">
+				<tr dir-paginate="music in musics|filter:pesquisar|itemsPerPage:8">
 					<td>{{music.id}}</td>
 					<td>{{music.title}}</td>
 					<td>{{music.genre}}</td>
@@ -42,13 +42,12 @@
 	</div>
 </div>
 
-<div>
+<!-- <div>
 	<audio controls>
- <source src="horse.ogg" type="audio/ogg">
- <source src="horse.mp3" type="audio/mpeg">
+ <source name="player" src="" type="audio/mp3">
 Your browser does not support the audio element.
 </audio>
-</div>
+</div> -->
 
 <!-- Modal Cadastro e Edição -->
 <div class="modal fade" id="modalPessoa" tabindex="-1" role="dialog" >
@@ -92,6 +91,7 @@ Your browser does not support the audio element.
 	var source = null;
 	var audioBuffer = null;
 	var code64 = "sdf";
+	var json = null;
 
 	var bufferToBase64 = function (buffer) {
 		var bytes = new Uint8Array(buffer);
@@ -126,25 +126,60 @@ Your browser does not support the audio element.
 		return recebeString;
 	}, false);
 
-
+	var musicas = [];
 	function salvar(){
-		var titulo = $(document.getElementsByName('title')).val();
-		var artista = $(document.getElementsByName('artist')).val();
-		var genero = $(document.getElementsByName('genre')).val();
+		var vartitulo = $(document.getElementsByName('title')).val();
+		var varartista = $(document.getElementsByName('artist')).val();
+		var vargenero = $(document.getElementsByName('genre')).val();
 		//var arquivo = $(document.getElementsByName('arquivo').val());
-		var metadata = {"titulo": titulo, "artista": artista, "genero": genero};
+		var varmetadata = {titulo: vartitulo, artista: varartista, genero: vargenero};
 		//alert(code64);
-		var dados = {"metadata" :metadata,"file":code64, "ext":"ogg"};
+		var dados = {metadata : varmetadata,file: code64, ext:"mp3"};
 		//alert(JSON.stringfy(dados));
 
 		var xhttp = new XMLHttpRequest();
-		xhttp.open("POST", "localhost:4000/api/new", true);
+		xhttp.open("POST", "http://localhost:4000/api/new", true);
 		xhttp.setRequestHeader("Content-type", "application/json");
-		xhttp.send(dados);
-		var response = JSON.parse(xhttp.responseText);
+		xhttp.send(JSON.stringify(dados));
+		//xhttp.onla
+
+		//window.location.reload();
+		load();
+		//var response = JSON.parse(xhttp.responseText);
+		//alert(xhttp.responseText);
 	}
 
-	function UserAction() {
-
+	function load() {
+		var xhttp = new XMLHttpRequest();
+		xhttp.open("GET", "http://localhost:4000/api/list", false);
+		xhttp.setRequestHeader("Content-type", "application/json");
+		xhttp.send();
+		respj = xhttp.responseText;
+		//alert(response);
 	}
+	function play(file){
+		alert(file);
+		var src="http://localhost:4000" + file;
+		alert(src);
+		document.getElementsByName("player").setAttribute("src",srcA);
+	}
+
+	$(document).ready(function () {
+    $.getJSON("http://localhost:4000/api/list",
+    function (json) {
+        var tr;
+        for (var i = 0; i < json.length; i++) {
+            tr = $('<tr/>');
+            tr.append("<td>" + json[i].id + "</td>");
+            tr.append("<td>" + json[i].metadata.titulo + "</td>");
+			tr.append("<td>" + json[i].metadata.genero + "</td>");
+			tr.append("<td>" + json[i].metadata.artista + "</td>");
+			tr.append('<td><button class="btn btn-info btn-xs" ng-click="editar(pessoa)"><span class="glyphicon glyphicon-pencil"></span> Edit</button><button class="btn btn-danger btn-xs" ng-click="excluir(pessoa)"><span class="glyphicon glyphicon-trash"></span> Delete</button></td>');
+            //tr.append('<td><button class="btn btn-info btn-xs" ng-click="play(' + json[i].file +')"><span class="glyphicon glyphicon-play"></span></button></td>')
+            tr.append('<audio controls><source name="player" src="'+ "http://localhost:4000" +json[i].file +'" type="audio/mp3"></audio>')
+			$('table').append(tr);
+        	}
+    	});
+	});
+	//var srcA = "";
 	</script>
