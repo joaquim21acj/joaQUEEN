@@ -47,7 +47,7 @@
  <source src="horse.ogg" type="audio/ogg">
  <source src="horse.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
-</audio> 
+</audio>
 </div>
 
 <!-- Modal Cadastro e Edição -->
@@ -75,13 +75,13 @@ Your browser does not support the audio element.
 						<input name="genre" class="form-control" type="text" ng-model="pessoa.nascimento">
 					</div>
 					<div class="col-md-6">
-						<input type="file" accept="audio/*">
+						<input type="file" accept="audio/*" name="fileUpload">
 					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button name="cancel" id="cancel" type="button" class="btn btn-default" ng-click="pessoa = {}" data-dismiss="modal">Cancel</button>
-				<button name="save" id="save" type="button" class="btn btn-primary" onclick="salvar()">Save</button>
+				<button name="save" id="save" type="button" class="btn btn-primary" name="btnEnviar" onclick="salvar()">Save</button>
 			</div>
 		</div>
 	</div>
@@ -91,7 +91,7 @@ Your browser does not support the audio element.
 	var context = new AudioContext();
 	var source = null;
 	var audioBuffer = null;
-	var code64 = "";
+	var code64 = "sdf";
 
 	var bufferToBase64 = function (buffer) {
 		var bytes = new Uint8Array(buffer);
@@ -104,15 +104,18 @@ Your browser does not support the audio element.
 	};
 
 	function initSound(arrayBuffer) {
-		var base64String = bufferToBase64(arrayBuffer);
+		var base64String =""
+		//alert(base64String);
+		//alert(code64);
+		code64 = bufferToBase64(arrayBuffer);
+		//alert(code64);
 		var audioFromString = base64ToBuffer(base64String);
-		code64 = base64String;
 		context.decodeAudioData(audioFromString, function (buffer) {
 		}, function (e) {
 			console.log('Error decoding file', e);
 		});
+		//return base64String;
 	}
-
 	var fileInput = document.querySelector('input[type="file"]');
 	fileInput.addEventListener('change', function (e) {
 		var reader = new FileReader();
@@ -120,6 +123,7 @@ Your browser does not support the audio element.
 			initSound(this.result);
 		};
 		reader.readAsArrayBuffer(this.files[0]);
+		return recebeString;
 	}, false);
 
 
@@ -127,8 +131,11 @@ Your browser does not support the audio element.
 		var titulo = $(document.getElementsByName('title')).val();
 		var artista = $(document.getElementsByName('artist')).val();
 		var genero = $(document.getElementsByName('genre')).val();
-		var metadata = {"titulo": titulo, "artista": artista, "genero": genero}
-		var dados = {"metadata" :metadata,"file":code64, "ext":"mp3"}
+		//var arquivo = $(document.getElementsByName('arquivo').val());
+		var metadata = {"titulo": titulo, "artista": artista, "genero": genero};
+		//alert(code64);
+		var dados = {"metadata" :metadata,"file":code64, "ext":"ogg"};
+		//alert(JSON.stringfy(dados));
 
 		var xhttp = new XMLHttpRequest();
 		xhttp.open("POST", "localhost:4000/api/new", true);
@@ -138,6 +145,6 @@ Your browser does not support the audio element.
 	}
 
 	function UserAction() {
-		
+
 	}
 	</script>
